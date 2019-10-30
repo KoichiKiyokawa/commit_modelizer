@@ -45,6 +45,20 @@ public class Doc2Vec {
             System.out.println("Learning...");
             vec.fit();
             System.out.println("Saving model...");
+
+            File modelDir = new File("models/");
+            if (!modelDir.exists()) {
+                modelDir.mkdirs();
+            }
+            File outputFile = new File(repoID + ".txt");
+            if (!outputFile.exists()) {
+                try {
+                    outputFile.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
             WordVectorSerializer.writeParagraphVectors(vec, String.format("models/%s.txt", repoID));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
