@@ -27,7 +27,7 @@ public class Repository {
     }
 
     private static void fetchCommitMessages(String repoID, String repoName) {
-        String[] cmd = "git log --oneline --pretty=format:'%s'".split(" ");
+        String[] cmd = "git log --oneline --pretty=format:%s".split(" ");
         String commitMessages = CommandExecuter.run(cmd, repoDir + repoName);
 
         File outputDir = new File("commit_messages/");
