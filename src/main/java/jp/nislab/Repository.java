@@ -36,7 +36,7 @@ public class Repository {
         }
 
         try {
-            File outputFile = new File("commit_messages/" + repoID);
+            File outputFile = new File(String.format("commit_messages/%s.txt", repoID));
             if (!outputFile.exists()) {
                 outputFile.createNewFile();
             }
