@@ -20,12 +20,12 @@ public class Doc2Vec {
      *
      * @param commitMessageFile File that saves commit messages.
      */
-    public static void learn(File commitMessageFile) {
+    public static void learn(String repoID) {
         TokenizerFactory t = new DefaultTokenizerFactory();
         t.setTokenPreProcessor(new CommonPreprocessor());
 
         try {
-            SentenceIterator iterator = new BasicLineIterator(commitMessageFile);
+            SentenceIterator iterator = new BasicLineIterator("repositories/" + repoID);
             System.out.println("Builging model...");
             ParagraphVectors vec = new ParagraphVectors.Builder().batchSize(1000).epochs(1).trainWordVectors(true)
                     .minWordFrequency(1)
@@ -45,7 +45,7 @@ public class Doc2Vec {
             System.out.println("Learning...");
             vec.fit();
             System.out.println("Saving model...");
-            WordVectorSerializer.writeParagraphVectors(vec, commitMessageFile);
+            WordVectorSerializer.writeParagraphVectors(vec, String.format("models/%s.txt", repoID));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
