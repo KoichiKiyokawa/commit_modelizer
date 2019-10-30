@@ -3,7 +3,6 @@ package jp.nislab;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Arrays;
 
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.paragraphvectors.ParagraphVectors;
@@ -12,21 +11,21 @@ import org.deeplearning4j.text.sentenceiterator.SentenceIterator;
 import org.deeplearning4j.text.tokenization.tokenizer.preprocessor.CommonPreprocessor;
 import org.deeplearning4j.text.tokenization.tokenizerfactory.DefaultTokenizerFactory;
 import org.deeplearning4j.text.tokenization.tokenizerfactory.TokenizerFactory;
-import org.deeplearning4j.text.documentiterator.LabelsSource;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.ops.transforms.Transforms;
 
 public class Doc2Vec {
 
-  final String outputPath = "output/commit_message_model.txt";
-
-  public void learn() {
-    File file = new File("commit_messages.txt");
+  /**
+   *
+   * @param commitMessageFile File that saves commit messages.
+   */
+  public static void learn(File commitMessageFile) {
     TokenizerFactory t = new DefaultTokenizerFactory();
     t.setTokenPreProcessor(new CommonPreprocessor());
 
     try {
-      SentenceIterator iterator = new BasicLineIterator(file);
+      SentenceIterator iterator = new BasicLineIterator(commitMessageFile);
       System.out.println("Builging model...");
       ParagraphVectors vec = new ParagraphVectors.Builder().batchSize(1000).epochs(1).trainWordVectors(true)
           .minWordFrequency(1)
@@ -45,17 +44,17 @@ public class Doc2Vec {
       System.out.println("Learning...");
       vec.fit();
       System.out.println("Saving model...");
-      WordVectorSerializer.writeParagraphVectors(vec, new File(outputPath));
+      WordVectorSerializer.writeParagraphVectors(vec, commitMessageFile);
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
 
   }
 
-  public void calcSim(String strA, String strB) {
+  public static void calcSim(File commitMessageFile, String strA, String strB) {
     System.out.println("Loading model...");
     try {
-      ParagraphVectors vec = WordVectorSerializer.readParagraphVectors(new File(outputPath));
+      ParagraphVectors vec = WordVectorSerializer.readParagraphVectors(commitMessageFile);
       TokenizerFactory t = new DefaultTokenizerFactory();
       t.setTokenPreProcessor(new CommonPreprocessor());
       vec.setTokenizerFactory(t);
