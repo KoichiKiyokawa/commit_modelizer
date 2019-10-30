@@ -11,9 +11,8 @@ public class App {
             Repository.fetchAllRepoCommitMessages();
             break;
         case "learn":
-            String project = args[1];
-            File commitMessageFile = new File(String.format("commit_messages/%s.txt", project));
-            Doc2Vec.learn(commitMessageFile);
+            String repoID = args[1];
+            Doc2Vec.learn(repoID);
             break;
         default:
             System.out.println("No mode match.");
