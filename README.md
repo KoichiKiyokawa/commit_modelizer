@@ -1,5 +1,6 @@
 # commit_modelizer
-
+Make Paragraph Vector model of commit message.
+The model is used in [astor extension](https://github.com/KoichiKiyokawa/astor).
 ## How to run
 ### Dependencies
 - Maven
