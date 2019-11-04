@@ -25,7 +25,7 @@ public class Doc2Vec {
         t.setTokenPreProcessor(new CommonPreprocessor());
 
         try {
-            SentenceIterator iterator = new BasicLineIterator("repositories/" + repoID);
+            SentenceIterator iterator = new BasicLineIterator(String.format("commit_messages/%s.txt", repoID));
             System.out.println("Builging model...");
             ParagraphVectors vec = new ParagraphVectors.Builder().batchSize(1000).epochs(1).trainWordVectors(true)
                     .minWordFrequency(1)
