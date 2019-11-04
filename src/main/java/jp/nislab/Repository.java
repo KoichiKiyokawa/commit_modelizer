@@ -15,7 +15,7 @@ public class Repository {
         ID2project.put("closure", "closure-compiler.git");
         ID2project.put("lang", "commons-lang.git");
         ID2project.put("math", "commons-math.git");
-        ID2project.put("jfreechart", "jfreechart");
+        ID2project.put("chart", "jfreechart");
         ID2project.put("time", "joda-time.git");
         ID2project.put("mockito", "mockito.git");
     };
