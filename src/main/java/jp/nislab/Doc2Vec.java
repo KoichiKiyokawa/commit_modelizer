@@ -32,7 +32,7 @@ public class Doc2Vec {
 
         try {
             SentenceIterator iterator = new BasicLineIterator(String.format("commit_messages/%s.txt", repoID));
-            System.out.println("Builging model...");
+            System.out.println(String.format("Builging %s model...", repoID));
             ParagraphVectors vec = new ParagraphVectors.Builder().batchSize(1000).epochs(1).trainWordVectors(true)
                     .minWordFrequency(1)
                     // .useAdaGrad(false)
