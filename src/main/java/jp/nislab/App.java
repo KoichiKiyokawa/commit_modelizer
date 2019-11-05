@@ -1,7 +1,5 @@
 package jp.nislab;
 
-import java.io.File;
-
 public class App {
     public static void main(String[] args) {
         String mode = args[0];
@@ -12,6 +10,9 @@ public class App {
             break;
         case "learn":
             String repoID = args[1];
+            if (repoID.equals("all")){
+                Doc2Vec.learnAllRepo();
+            }
             Doc2Vec.learn(repoID);
             break;
         default:

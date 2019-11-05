@@ -16,6 +16,12 @@ import org.nd4j.linalg.ops.transforms.Transforms;
 
 public class Doc2Vec {
 
+    public static void learnAllRepo(){
+        for (String repoID:ID2project.keySet()){
+            learn(repoID);
+        }
+    }
+
     /**
      *
      * @param commitMessageFile File that saves commit messages.
