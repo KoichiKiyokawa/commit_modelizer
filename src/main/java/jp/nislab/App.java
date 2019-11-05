@@ -7,21 +7,20 @@ public class App {
         switch (mode) {
         case "fetch":
             Repository.fetchAllRepoCommitMessages();
-            break;
+            return;
         case "learn":
-            String repoID = args[1];
-            if (repoID == null) {
-                System.out.println("No repoID.");
-                break;
-            } else if (repoID.isEmpty()) {
-                System.out.println("No repoID.");
-                break;
-            } else if (repoID.equals("all")) {
-                Doc2Vec.learnAllRepo();
-                break;
+            try {
+                String repoID = args[1];
+                if (repoID.equals("all")) {
+                    Doc2Vec.learnAllRepo();
+                } else {
+                    Doc2Vec.learn(repoID);
+                }
+                return;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("No repoID");
+                return;
             }
-            Doc2Vec.learn(repoID);
-            break;
         default:
             System.out.println("No mode match.");
         }
