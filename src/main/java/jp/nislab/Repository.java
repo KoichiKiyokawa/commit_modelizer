@@ -3,16 +3,14 @@ package jp.nislab;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Repository {
 
     private static final String repoDir = "repositories/";
 
     public static void fetchAllRepoCommitMessages() {
-        for (Map.Entry<String, String> entry : ID2project.entrySet()) {
-            fetchCommitMessages(entry.getKey(), entry.getValue());
+        for (RepoEnum repo : RepoEnum.values()) {
+            fetchCommitMessages(repo.name(), repo.repoID);
         }
     }
 
